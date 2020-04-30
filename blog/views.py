@@ -25,7 +25,7 @@ def post_detail(request, pk):
 
 
 def like_post(request):
-    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post = get_object_or_404(Post, id=request.POST.get('id'))
     is_liked = False
     if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)
@@ -33,7 +33,15 @@ def like_post(request):
     else:
         post.likes.add(request.user)
         is_liked = True
-    return redirect('post_detail', pk=post.pk)
+    context = {
+        'post': post,
+        'is_liked': is_liked,
+        'total_likes': post.total_likes(),
+    }
+    if request.is_ajax():
+        html = render_to_string('blog/like_section.html', context, request=request)
+        return JsonResponse({'form': html})
+    # return redirect('post_detail', pk=post.pk)
 
 
 @login_required
