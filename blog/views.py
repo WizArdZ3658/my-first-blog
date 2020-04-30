@@ -1,8 +1,14 @@
+import json
+
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.http import require_POST
+
 from .models import Post, Comment
 from django.utils import timezone
 from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 
 
 def post_list(request):
@@ -12,7 +18,22 @@ def post_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
+    is_liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        is_liked = True
+    return render(request, 'blog/post_detail.html', {'post': post, 'is_liked': is_liked, 'total_likes': post.total_likes(), })
+
+
+def like_post(request):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    is_liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        is_liked = False
+    else:
+        post.likes.add(request.user)
+        is_liked = True
+    return redirect('post_detail', pk=post.pk)
 
 
 @login_required
