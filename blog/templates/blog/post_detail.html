@@ -15,14 +15,11 @@
         {% endif %}
         <h2>{{ post.title }}</h2>
         <p>{{ post.text|linebreaksbr }}</p>
-
-        <div id="like-section">
-            {% include 'blog/like_section.html' %}
-        </div>
-
-
     </div>
     <hr>
+    <div id="like-section">
+        {% include 'blog/like_section.html' %}
+    </div>
     <a class="btn btn-default" href="{% url 'add_comment_to_post' post.pk %}">Add comment</a>
     {% for comment in post.comments.all %}
         {% if user.is_authenticated or comment.approved_comment %}
