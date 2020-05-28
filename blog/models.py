@@ -2,6 +2,8 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from django.utils.safestring import mark_safe
+from markdown_deux import markdown
 
 
 class Post(models.Model):
@@ -24,6 +26,11 @@ class Post(models.Model):
 
     def approved_comments(self):
         return self.comments.filter(approved_comment=True)
+
+    def get_markdown(self):
+        text = self.text
+        return mark_safe(markdown(text))
+
 
 
 class Comment(models.Model):

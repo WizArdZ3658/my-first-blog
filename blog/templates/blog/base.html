@@ -7,6 +7,9 @@
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+
+        {% block head_extra %} {% endblock head_extra %}
     </head>
     <body>
         <div class="page-header">
@@ -17,7 +20,7 @@
             {% else %}
                 <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
             {% endif %}
-            <h1><a href="/">Somnath's Blog</a></h1>
+            <h1 class="blog-title-cursive"><a href="/">Somnath's Blog</a></h1>
         </div>
         <div class="content container">
             <div class="row">
@@ -49,6 +52,22 @@
                     });
                 });
             });
+        </script>
+        <script
+              src="http://code.jquery.com/jquery-1.12.4.min.js"
+              integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+              crossorigin="anonymous">
+
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.1.0/marked.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $(".content-markdown").each(function(){
+                    var content = $(this).text()
+                    var markedContent = marked(content)
+                    $(this).html(markedContent)
+                })
+            })
         </script>
     </body>
 </html>
