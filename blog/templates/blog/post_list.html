@@ -7,7 +7,7 @@
                 {{ post.published_date }}
             </div>
             <h2 class="blog-title-cursive"><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
-            <p class="">{{ post.get_markdown|truncatechars:50 }}</p>
+            <p class="">{{ post.get_markdown|truncatechars_html:10 }}</p>
             <span>{{ post.likes.count }} Like{{ post.likes.count|pluralize }}</span>
             <a href="{% url 'post_detail' post.pk %}">Comments: {{ post.approved_comments.count }}</a>
         </div>

@@ -48,3 +48,20 @@
 .comment {
     margin: 20px 0px 20px 20px;
 }
+
+.wmd-preview {
+    display: none;
+}
+
+div.wmd-panel {
+    margin-left: 0%;
+    margin-right: 0%;
+}
+
+div.wmd-button-bar {
+    background-color: white;
+}
+
+textarea.wmd-input {
+    background-color: white;
+}

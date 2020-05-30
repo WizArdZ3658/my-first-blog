@@ -31,7 +31,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'pagedown',
     'markdown_deux',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -134,7 +137,7 @@ REST_FRAMEWORK = {
 """
 http POST http://127.0.0.1:8000/api-token-auth/  username=user password=pass
 
-http http://127.0.0.1:8000/api/posts/ "Authorization: JWT <token>"
+http http://127.0.0.1:8000/api/posts/ "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6IndpbmdtYW5fXzciLCJleHAiOjE1OTA4NTkyNDAsImVtYWlsIjoiIn0.H9kjU7ejMxXBAJK6qDHr_yhpCMnXqfrK1oAQItp7C2I"
 
 http POST http://127.0.0.1:8000/api/posts/create/ title="title" text="text" "Authorization: JWT <token>"
 """
