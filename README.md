@@ -7,6 +7,7 @@ My blog website
  * Users can use markdown or may use tools from top panel to make blog look more beautiful and presentable. Auto preview
   is also enabled. 
  * Implemented REST API so that users and other applications can use the data (perform CRUD).
+ * Implemented pagination for better readability.
  
  ## New features to be added :-
  * Improve the backend logic (*need to refine the "approval" system)
