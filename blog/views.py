@@ -2,7 +2,7 @@ import json
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Post, Comment
 from django.utils import timezone
 from .forms import PostForm, CommentForm
@@ -13,7 +13,16 @@ from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts, 7)
+    try:
+        posts2 = paginator.page(page)
+    except PageNotAnInteger:
+        posts2 = paginator.page(1)
+    except EmptyPage:
+        posts2 = paginator.page(paginator.num_pages)
+    return render(request, 'blog/post_list.html', {'posts': posts2})
 
 
 def post_detail(request, pk):
