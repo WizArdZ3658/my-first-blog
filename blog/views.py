@@ -21,7 +21,8 @@ def post_detail(request, pk):
     is_liked = False
     if post.likes.filter(id=request.user.id).exists():
         is_liked = True
-    return render(request, 'blog/post_detail.html', {'post': post, 'is_liked': is_liked, 'total_likes': post.total_likes(), })
+    return render(request, 'blog/post_detail.html',
+                  {'post': post, 'is_liked': is_liked, 'total_likes': post.total_likes(), })
 
 
 def like_post(request):
@@ -42,6 +43,34 @@ def like_post(request):
         html = render_to_string('blog/like_section.html', context, request=request)
         return JsonResponse({'form': html})
     # return redirect('post_detail', pk=post.pk)
+
+
+def vote_comment(request):
+    comment = get_object_or_404(Comment, id=request.POST.get('id'))
+    mode = request.POST.get('mode')
+
+    if mode == 'downvote':
+        if comment.downvotes.filter(id=request.user.id).exists():
+            comment.downvotes.remove(request.user)
+        else:
+            if comment.upvotes.filter(id=request.user.id).exists():
+                comment.upvotes.remove(request.user)
+            comment.downvotes.add(request.user)
+
+    elif mode == 'upvote':
+        if comment.upvotes.filter(id=request.user.id).exists():
+            comment.upvotes.remove(request.user)
+        else:
+            if comment.downvotes.filter(id=request.user.id).exists():
+                comment.downvotes.remove(request.user)
+            comment.upvotes.add(request.user)
+
+    context = {
+        'post': comment.post
+    }
+    if request.is_ajax():
+        html = render_to_string('blog/comment_section.html', context, request=request)
+        return JsonResponse({'form': html})
 
 
 @login_required

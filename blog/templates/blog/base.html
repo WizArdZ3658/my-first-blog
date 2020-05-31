@@ -8,6 +8,8 @@
         <link href='//fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/f6ed67285a.js" crossorigin="anonymous"></script>
 
         {% block head_extra %} {% endblock head_extra %}
     </head>
@@ -45,6 +47,44 @@
                         },
                         success: function(response){
                             $('#like-section').html(response['form'])
+                        },
+                        error: function(rs, e){
+                            console.log(rs.responseText);
+                        },
+                    });
+                });
+                $(document).on('click', '#uvote', function(event){
+                    event.preventDefault();
+                    var pk = $(this).attr('value');
+                    $.ajax({
+                        type: 'POST',
+                        url: '{% url "vote_comment" %}',
+                        data: {
+                            'id': pk,
+                            'mode': 'upvote',
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        success: function(response){
+                            $('#comment-section').html(response['form'])
+                        },
+                        error: function(rs, e){
+                            console.log(rs.responseText);
+                        },
+                    });
+                });
+                $(document).on('click', '#dvote', function(event){
+                    event.preventDefault();
+                    var pk = $(this).attr('value');
+                    $.ajax({
+                        type: 'POST',
+                        url: '{% url "vote_comment" %}',
+                        data: {
+                            'id': pk,
+                            'mode': 'downvote',
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        success: function(response){
+                            $('#comment-section').html(response['form'])
                         },
                         error: function(rs, e){
                             console.log(rs.responseText);

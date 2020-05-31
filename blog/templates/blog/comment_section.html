@@ -1,0 +1,27 @@
+{% for comment in post.comments.all %}
+    {% if user.is_authenticated or comment.approved_comment %}
+    <div class="comment">
+        <div class="date">
+            {{ comment.created_date|timesince }}
+            {% if not comment.approved_comment %}
+                <a class="btn btn-default" href="{% url 'comment_remove' comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                <a class="btn btn-default" href="{% url 'comment_approve' comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+            {% endif %}
+        </div>
+        <strong>{{ comment.author }}</strong>
+        <div style="display: inline-block">
+                {% if request.user.is_authenticated %}
+                <form action="{% url 'vote_comment' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" id="uvote" name="comment_id" value="{{ comment.id }}"><i class="fas fa-chevron-up"></i></button>
+                    <button type="submit" id="dvote" name="comment_id" value="{{ comment.id }}"><i class="fas fa-chevron-down"></i></button>
+                    <small class="text-muted" style="font-weight:bold;">{{ comment.upvotes.count }} upvote{{ comment.upvotes.count|pluralize }}, {{ comment.downvotes.count }} downvote{{ comment.downvotes.count|pluralize }}</small>
+                </form>
+                {% endif %}
+            </div>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+    {% endif %}
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
