@@ -15,7 +15,7 @@ def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(posts, 7)
+    paginator = Paginator(posts, 5)
     try:
         posts2 = paginator.page(page)
     except PageNotAnInteger:
