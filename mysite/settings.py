@@ -141,3 +141,10 @@ http http://127.0.0.1:8000/api/posts/ "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbG
 
 http POST http://127.0.0.1:8000/api/posts/create/ title="title" text="text" "Authorization: JWT <token>"
 """
+
+"""
+http POST http://wingman7.pythonanywhere.com/api-token-auth/  username=user password=pass
+
+http http://wingman7.pythonanywhere.com/api/posts/ "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IndpbmdtYW43IiwiZXhwIjoxNTkwOTM1MDE3LCJlbWFpbCI6InAuc29tbmF0aDI1OTlAZ21haWwuY29tIn0.jzPIEL02oFnQJI1OjkabhL9Yz4AjC7ClkqMESvY8XsE"
+
+"""
