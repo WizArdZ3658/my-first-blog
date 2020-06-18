@@ -2,12 +2,15 @@
 My blog website
 
 ## Features :-
- * Users can signup, post blogs, like/dislike posts, post comments, etc.
- * Upvote/downvote system in comment section.
+ * Users can register on the website by filling up a form and activate it by clicking on the activation link sent to
+ the user's e-mail address.
+ * After signup users can post blogs, like/dislike posts, post comments, etc.
+ * Upvote/downvote system in the comment section.
  * Users can use markdown or may use tools from top panel to make blog look more beautiful and presentable. Auto preview
   is also enabled. 
  * Implemented REST API so that users and other applications can use the data (perform CRUD).
  * Implemented pagination for better readability.
+
  
 ## Working with the API
  * The API is not public.
@@ -30,7 +33,7 @@ Python, HTML, CSS, SQL, Javascript, Git
 
 ##### Frameworks, Libraries and Tools:-
 AJAX, Bootstrap, Django, PyCharm, JWT, Django REST framework, Django Crispy Forms, Django Pagedown, Django Markdown Deux,
-JQuery, Marked.js
+JQuery, Marked.js, SMTP
 
 ##### Databases:-
 SQLite
