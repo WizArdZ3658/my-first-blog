@@ -20,6 +20,7 @@
                 <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
                 <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
             {% else %}
+                <a href="{% url 'signup' %}" class="top-menu"><span>Sign up here!</span></a>
                 <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
             {% endif %}
             <h1 class="blog-title-cursive"><a href="/">Somnath's Blog</a></h1>
